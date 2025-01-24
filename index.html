@@ -1,4 +1,4 @@
-<!-- See the odin project "rock, paper, scissors"
+<!-- this is to see if i can make changes on a branch "rock, paper, scissors"
 -->
 
 <!DOCTYPE html>
@@ -9,12 +9,13 @@
   <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <h1>Rock, paper, scissors.</h1>
+    <div id="container"></div>
+</body>
+</html>
+
 
   <script>
-
-    let humanScore = 0;
-    let computerScore = 0;
-
     function getComputerChoice() {
         let computerChoice = Math.random();
         if (computerChoice <= 0.33) {
@@ -33,75 +34,124 @@
         
     }
 
-    function getHumanChoice() {
-        let validInputs = ["rock", "paper", "scissors"];
-        let humanChoice;
-        while (!validInputs.includes(humanChoice)) {
-            humanChoice = prompt("Enter 'rock', 'paper', or 'scissors':").toLowerCase();
-        }
-        switch (humanChoice) {
-            case 'rock':
-                result = "Human choice: rock";
-                console.log(result);
-                break;
-            case 'paper':
-                result = "Human choice: paper";
-                console.log(result);
-                break;
-            case 'scissors':
-                result = "Human choice: scissors";
-                console.log(result);
-                break;
-            
-        }
+
+    const container = document.querySelector("#container");
+    const content = document.createElement("div");
+    content.classList.add("content");
+    content.textContent = "This is the game!";
+    container.appendChild(content);
+
+    const humResults = document.createElement("div");
+    humResults.classList.add("humresults");
+    container.appendChild(humResults);
+    const comResults = document.createElement("div");
+    comResults.classList.add("comresults");
+    container.appendChild(comResults);
+       
+
+    const button1 = document.createElement("button");
+    button1.classList.add("button1");
+    button1.setAttribute("style", "height: 50px; width: 100px; margin: 50px;");
+    button1.textContent = "Rock"; 
+    content.appendChild(button1);
+    button1.addEventListener("click", () => {
+        let humanChoice = "rock";
+        console.log("Human choice: rock");
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        humResults.textContent = "Human score: " + humanScore;
+        comResults.textContent = "Computer score: " + computerScore;
         
-        return humanChoice;
-    }
+
+        console.log("Human score: " + humanScore);
+        console.log("Computer score: " + computerScore);
+        
+        
+    });
+
+
+    const button2 = document.createElement("button");
+    button2.classList.add("button1");
+    button2.setAttribute("style", "height: 50px; width: 100px; margin: 50px;");
+    button2.textContent = "Paper"; 
+    content.appendChild(button2);
+    button2.addEventListener("click", () => {
+        let humanChoice = "paper";
+        console.log("Human choice: paper");
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        humResults.textContent = "Human score: " + humanScore;
+        comResults.textContent = "Computer score: " + computerScore;
+        
+
+        console.log("Human score: " + humanScore);
+        console.log("Computer score: " + computerScore);
+         
+    });
+
+
+    const button3 = document.createElement("button");
+    button3.classList.add("button1");
+    button3.setAttribute("style", "height: 50px; width: 100px; margin: 50px;");
+    button3.textContent = "Scissors"; 
+    content.appendChild(button3);
+    button3.addEventListener("click", () => {
+        let humanChoice = "scissors";
+        console.log("Human choice: scissors");
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        humResults.textContent = "Human score: " + humanScore;
+        comResults.textContent = "Computer score: " + computerScore;
+        
+
+        console.log("Human score: " + humanScore);
+        console.log("Computer score: " + computerScore);
+    });
+
+    const finalScore = document.createElement("div");
+    const scores = document.createElement("h3");
+    
+    container.appendChild(finalScore);
+    
+
+    let humanScore = 0;
+    let computerScore = 0;
 
     function playRound(humanChoice, computerChoice) {
-        if (humanChoice == "rock" && computerChoice =="scissors") {
-            humanScore += 1;
-            console.log("You win!");
-        }
-        if (computerChoice == "rock" && humanChoice =="scissors") {
-            computerScore += 1;
-            console.log("You lose!");
-        }
-        if (humanChoice == "paper" && computerChoice =="rock") {
-            humanScore += 1;
-            console.log("You win!");
-        }
-        if (computerChoice == "paper" && humanChoice =="rock") {
-            computerScore += 1;
-            console.log("You lose!");
-        }
-        if (humanChoice == "scissors" && computerChoice =="paper") {
-            humanScore += 1;
-            console.log("You win!");
-        }
-        if (computerChoice == "scissors" && humanChoice =="paper") {
-            computerScore += 1;
-            console.log("You lose!");
-        }
-        if (humanChoice == computerChoice) {
-            console.log("Draw!");
-        }
+    // Check if either player has already reached a score of 3
+    if (humanScore == 3 || computerScore == 3) {
+        scores.textContent = "Computer score: " + computerScore + "\nHuman score: " + humanScore;
+        finalScore.appendChild(scores);
+        return; // Stop the function execution
     }
 
-    function playGame() {
-        for (let i = 0; i < 5; i++) {
-            const humanChoice = getHumanChoice();
-            const computerChoice = getComputerChoice();
-            playRound(humanChoice, computerChoice);
-            console.log("Human score: " + humanScore);
-            console.log("Computer score: " + computerScore);
-        }
+    // Main logic for determining the winner of the round
+    if (humanChoice == "rock" && computerChoice == "scissors") {
+        humanScore += 1;
+        console.log("You win!");
+    } else if (computerChoice == "rock" && humanChoice == "scissors") {
+        computerScore += 1;
+        console.log("You lose!");
+    } else if (humanChoice == "paper" && computerChoice == "rock") {
+        humanScore += 1;
+        console.log("You win!");
+    } else if (computerChoice == "paper" && humanChoice == "rock") {
+        computerScore += 1;
+        console.log("You lose!");
+    } else if (humanChoice == "scissors" && computerChoice == "paper") {
+        humanScore += 1;
+        console.log("You win!");
+    } else if (computerChoice == "scissors" && humanChoice == "paper") {
+        computerScore += 1;
+        console.log("You lose!");
+    } else if (humanChoice == computerChoice) {
+        console.log("Draw!");
     }
 
-    playGame();
+    // Update the score display after each round
+    scores.textContent = "Computer score: " + computerScore + "\nHuman score: " + humanScore;
+    finalScore.appendChild(scores);
+}
 
-      
   </script>
 
-</body>
-</html>
